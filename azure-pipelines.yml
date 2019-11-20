@@ -15,11 +15,12 @@ stages:
         echo Build.SourceBranchName=$(Build.SourceBranchName)
         echo Build.Repository.Name=$(Build.Repository.Name)
         echo Build.Repository.Uri=$(Build.Repository.Uri)
+        echo Agent.WorkFolder=$(Agent.WorkFolder)
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.BinariesDirectory)
         rm CMakeCache.txt
-        cmake -G Ninja -DDREAM3D_SDK=/Users/Shared/IMF_SDK -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D....'
     - script: |
         cd $(Build.BinariesDirectory)

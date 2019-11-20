@@ -1,0 +1,20 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+stages:
+- stage: Build
+  jobs:
+  - job: macOS
+    pool:
+      name: BlueQuartz Self Hosted
+    steps:
+    - script: |
+        echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
+        echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
+        echo Build.SourceBranchName=$(Build.SourceBranchName)
+        echo Build.Repository.Name=$(Build.Repository.Name)
+        echo Build.Repository.Uri=$(Build.Repository.Uri)
+      displayName: 'Dump Azure Variables'
+
+      

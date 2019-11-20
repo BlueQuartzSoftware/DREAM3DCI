@@ -6,6 +6,7 @@ stages:
 - stage: Build
   jobs:
   - job: macOS
+    timeoutInMinutes: 120
     pool:
       name: BlueQuartz Self Hosted
     steps:
@@ -21,10 +22,19 @@ stages:
         cd $(Build.BinariesDirectory)
         rm CMakeCache.txt
         cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
-      displayName: 'Configure DREAM3D....'
+      displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        ctest -D Experimental
-      displayName: 'Build DREAM3D and Test DREAM3D with CTest'
-
+        rm CMakeCache.txt
+        cmake --build . --config Release --target all
+      displayName: 'Compile DREAM3D'
+    - script: |
+        cd $(Build.BinariesDirectory)
+        ctest -D Experimental --timeout 7200 -DCTEST_BUILD_NAME="$(Agent.Name)-$(Agent.MachineName)-$(Agent.OS)-$(Agent.OSArchitecture)-$(System.PullRequest.SourceBranch)" -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+      displayName: 'Testing DREAM3D'
+    - script: |
+        cd $(Build.BinariesDirectory)
+        cpack --verbose
+      displayName: 'Packing DREAM3D'
+      
       

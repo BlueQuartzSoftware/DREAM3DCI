@@ -20,12 +20,14 @@ stages:
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.BinariesDirectory)
-        rm CMakeCache.txt
+        rm -r *
+      displayName: 'Clean Build Directory'
+    - script: |
+        cd $(Build.BinariesDirectory)
         cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        rm CMakeCache.txt
         cmake --build . --config Release --target all
       displayName: 'Compile DREAM3D'
     - script: |
@@ -36,5 +38,5 @@ stages:
         cd $(Build.BinariesDirectory)
         cpack --verbose
       displayName: 'Packing DREAM3D'
-      
+
       

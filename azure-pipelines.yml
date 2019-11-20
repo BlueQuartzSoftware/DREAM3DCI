@@ -9,6 +9,8 @@ stages:
     timeoutInMinutes: 120
     pool:
       name: BlueQuartz Self Hosted
+      demands:
+        - agent.os -equals Darwin
     steps:
     - script: |
         echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)

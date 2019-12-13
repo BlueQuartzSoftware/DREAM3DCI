@@ -22,7 +22,15 @@ stages:
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.BinariesDirectory)
-        rm -r *
+        if [ -f "CMakeCache.txt" ]; then
+          rm CMakeCache.txt
+        fi
+        if [ -d "Bin" ]; then
+          rm -rf Bin
+        fi
+        if [ -d "SIMPLView" ]; then
+          rm -rf SIMPLView
+        fi
       displayName: 'Clean Build Directory'
     - script: |
         cd $(Build.BinariesDirectory)

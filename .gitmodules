@@ -1,9 +1,11 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
-	url = https://github.com/bluequartzsoftware/DREAM3D
+	url = https://github.com/JDuffeyBQ/DREAM3D
+	branch = feature/MoveRotateFilter
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
+	url = https://github.com/JDuffeyBQ/SIMPL
+	branch = feature/MoveRotateFilter
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView
@@ -15,7 +17,8 @@
 	url = https://github.com/bluequartzsoftware/ITKImageProcessing
 [submodule "DREAM3D_Plugins/SimulationIO"]
 	path = DREAM3D_Plugins/SimulationIO
-	url = https://github.com/bluequartzsoftware/SimulationIO
+	url = https://github.com/JDuffeyBQ/SimulationIO
+	branch = feature/OnScaleFix
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
 	url = https://github.com/dream3d/DREAM3DReview

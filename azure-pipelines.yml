@@ -34,7 +34,7 @@ stages:
       displayName: 'Clean Build Directory'
     - script: |
         cd $(Build.BinariesDirectory)
-        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)

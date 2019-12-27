@@ -25,3 +25,6 @@
 [submodule "DREAM3D_Plugins/DREAM3D_Data"]
 	path = DREAM3D_Plugins/DREAM3D_Data
 	url = https://github.com/dream3d/DREAM3D_Data
+[submodule "DREAM3D_Data"]
+	path = DREAM3D_Data
+	url = https://github.com/dream3d/DREAM3D_Data

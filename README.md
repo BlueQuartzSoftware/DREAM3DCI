@@ -10,3 +10,10 @@ Continuous Integration for DREAM.3D Builds
 + Commit those changes back to your GitHub area.
 + Submit a Pull Request (PR) against this repository
 + An admin for the repo will inspect your changes and kick off a build on the Azure build environment
+
+## Updating all the submodules to the latest 'develop' branch ##
+
+    [DREAN3DCI]$ git submodule foreach git pull origin develop
+
+## Add/Update the Remote for the Repositories that you wish to test ##
+

@@ -8,7 +8,7 @@ stages:
   - job: macOS
     timeoutInMinutes: 120
     workspace:
-      clean: outputs
+      clean: all
     pool:
       name: BlueQuartz Self Hosted
       demands:
@@ -44,7 +44,7 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber) $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -52,7 +52,7 @@ stages:
       displayName: 'Compile DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        ctest -D Experimental --timeout 7200 -DCTEST_BUILD_NAME="$(Agent.Name)-$(Agent.MachineName)-$(Agent.OS)-$(Agent.OSArchitecture)-$(System.PullRequest.SourceBranch)" -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+        ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -66,6 +66,8 @@ stages:
       displayName: "Cleaning Data Archives"
   - job: Windows
     timeoutInMinutes: 120
+    workspace:
+      clean: all
     pool:
       name: BlueQuartz Self Hosted
       demands:
@@ -82,7 +84,7 @@ stages:
         echo Agent.Name=$(Agent.Name)
         echo Agent.MachineName=$(Agent.MachineName)
         echo Agent.OSArchitecture=$(Agent.OSArchitecture)
-        echo BUILDNAME=$(Agent.OS)-$(Agent.MachineName)-$(System.PullRequest.SourceBranch)_$(Date:yyyyMMdd)$(Rev:.r)
+        echo BUILDNAME=$(Agent.OS)-$(Agent.MachineName)-$(Build.SourceBranchName)_$(Build.BuildNumber)
         echo Build.BuildNumber=$(Build.BuildNumber)
       displayName: 'Dump Azure Variables'
     - script: |

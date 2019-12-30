@@ -61,11 +61,11 @@ stages:
         rm -rf Image
       displayName: "Cleaning Data Archives"
   - job: Windows
-      timeoutInMinutes: 120
+    timeoutInMinutes: 120
     pool:
       name: BlueQuartz Self Hosted
       demands:
-        - agent.os -equals Windows
+        -agent.os -equals Windows_NT
     steps:
     - script: |
         echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)

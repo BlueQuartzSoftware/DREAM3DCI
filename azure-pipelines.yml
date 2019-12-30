@@ -60,4 +60,18 @@ stages:
         rm -rf T12-MAI-2010
         rm -rf Image
       displayName: "Cleaning Data Archives"
-      
+  - job: Windows
+      timeoutInMinutes: 120
+    pool:
+      name: BlueQuartz Self Hosted
+      demands:
+        - agent.os -equals Windows
+    steps:
+    - script: |
+        echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
+        echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
+        echo Build.SourceBranchName=$(Build.SourceBranchName)
+        echo Build.Repository.Name=$(Build.Repository.Name)
+        echo Build.Repository.Uri=$(Build.Repository.Uri)
+        echo Agent.WorkFolder=$(Agent.WorkFolder)
+      displayName: 'Dump Azure Variables'

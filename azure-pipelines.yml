@@ -83,8 +83,6 @@ stages:
         echo Agent.Name=$(Agent.Name)
         echo Agent.MachineName=$(Agent.MachineName)
         echo Agent.OSArchitecture=$(Agent.OSArchitecture)
-        echo Agent.os=$(Agent.os)
-        echo Agent.os=$(Agent.os)
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data

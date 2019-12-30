@@ -99,15 +99,15 @@ stages:
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        cmake --build . --config Release --target all
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\cmake --build . --config Release --target all
       displayName: 'Compile DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        ctest -D Experimental --timeout 7200 -DCTEST_BUILD_NAME="$(Agent.Name)-$(Agent.MachineName)-$(Agent.OS)-$(Agent.OSArchitecture)-$(System.PullRequest.SourceBranch)" -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\ctest -D Experimental --timeout 7200 -DCTEST_BUILD_NAME="$(Agent.Name)-$(Agent.MachineName)-$(Agent.OS)-$(Agent.OSArchitecture)-$(System.PullRequest.SourceBranch)" -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        cpack --verbose
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
         cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data

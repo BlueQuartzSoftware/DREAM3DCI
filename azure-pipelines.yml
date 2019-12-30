@@ -81,7 +81,7 @@ stages:
         echo Agent.Name=$(Agent.Name)
         echo Agent.MachineName=$(Agent.MachineName)
         echo Agent.OSArchitecture=$(Agent.OSArchitecture)
-        echo BUILDNAME=$(Agent.OS)-$(Agent.MachineName)-$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+        echo BUILDNAME=$(Agent.OS)-$(Agent.MachineName)-$(System.PullRequest.SourceBranch)_$(Date:yyyyMMdd)$(Rev:.r)
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data

@@ -7,6 +7,8 @@ stages:
   jobs:
   - job: macOS
     timeoutInMinutes: 120
+    workspace:
+      clean: all
     pool:
       name: BlueQuartz Self Hosted
       demands:
@@ -19,6 +21,8 @@ stages:
         echo Build.Repository.Name=$(Build.Repository.Name)
         echo Build.Repository.Uri=$(Build.Repository.Uri)
         echo Agent.WorkFolder=$(Agent.WorkFolder)
+        echo Agent.os=$(Agent.os)
+        echo Build.BuildNumber=$(Build.BuildNumber)
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -40,7 +44,7 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+        cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber) $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -48,7 +52,7 @@ stages:
       displayName: 'Compile DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        ctest -D Experimental --timeout 7200 -DCTEST_BUILD_NAME="$(Agent.Name)-$(Agent.MachineName)-$(Agent.OS)-$(Agent.OSArchitecture)-$(System.PullRequest.SourceBranch)" -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+        ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -60,4 +64,63 @@ stages:
         rm -rf T12-MAI-2010
         rm -rf Image
       displayName: "Cleaning Data Archives"
-      
+  - job: Windows
+    timeoutInMinutes: 120
+    workspace:
+      clean: all
+    pool:
+      name: BlueQuartz Self Hosted
+      demands:
+        - agent.os -equals Windows_NT
+    steps:
+    - script: |
+        echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
+        echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
+        echo Build.SourceBranchName=$(Build.SourceBranchName)
+        echo Build.Repository.Name=$(Build.Repository.Name)
+        echo Build.Repository.Uri=$(Build.Repository.Uri)
+        echo Agent.WorkFolder=$(Agent.WorkFolder)
+        echo Agent.os=$(Agent.os)
+        echo Agent.Name=$(Agent.Name)
+        echo Agent.MachineName=$(Agent.MachineName)
+        echo Agent.OSArchitecture=$(Agent.OSArchitecture)
+        echo BUILDNAME=$(Agent.OS)-$(Agent.MachineName)-$(Build.SourceBranchName)_$(Build.BuildNumber)
+        echo Build.BuildNumber=$(Build.BuildNumber)
+      displayName: 'Dump Azure Variables'
+    - script: |
+        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        C:\Applications\7-Zip\7z.exe x SmallIN100.tar.gz
+        C:\Applications\7-Zip\7z.exe x SmallIN100.tar
+        C:\Applications\7-Zip\7z.exe x T12-MAI-2010.tar.gz
+        C:\Applications\7-Zip\7z.exe x T12-MAI-2010.tar
+        C:\Applications\7-Zip\7z.exe x Image.tar.gz
+        C:\Applications\7-Zip\7z.exe x Image.tar
+      displayName: "Extracting Data Archives"
+    - script: |
+        cd $(Build.BinariesDirectory)
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\cmake.exe -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+      displayName: 'Configure DREAM3D'
+    - script: |
+        cd $(Build.BinariesDirectory)
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\cmake --build . --config Release --target all
+      displayName: 'Compile DREAM3D'
+    - script: |
+        $(Build.BinariesDirectory)\Anaconda\package.bat
+      displayName: 'Prepare Anaconda Site Package'
+    - script: |
+        cd $(Build.BinariesDirectory)
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+      displayName: 'Testing DREAM3D'
+    - script: |
+        cd $(Build.BinariesDirectory)
+        $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\cpack --verbose
+      displayName: 'Packing DREAM3D'
+    - script: |
+        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        rd /S /Q SmallIN100
+        rd /S /Q T12-MAI-2010
+        rd /S /Q Image
+        del SmallIN100.tar
+        del T12-MAI-2010.tar
+        del Image.tar
+      displayName: "Cleaning Data Archives"

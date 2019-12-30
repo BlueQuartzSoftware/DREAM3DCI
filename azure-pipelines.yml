@@ -7,6 +7,8 @@ stages:
   jobs:
   - job: macOS
     timeoutInMinutes: 120
+    workspace:
+      clean: all
     pool:
       name: BlueQuartz Self Hosted
       demands:
@@ -63,8 +65,12 @@ stages:
       displayName: "Cleaning Data Archives"
   - job: Windows
     timeoutInMinutes: 120
+    workspace:
+      clean: all
     pool:
       name: BlueQuartz Self Hosted
+      demands:
+        - agent.os -equals Windows_NT
     steps:
     - script: |
         echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
@@ -75,3 +81,13 @@ stages:
         echo Agent.WorkFolder=$(Agent.WorkFolder)
         echo Agent.os=$(Agent.os)
       displayName: 'Dump Azure Variables'
+    - script: |
+        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        C:\Applications\7-Zip\7z.exe SmallIN100.tar.gz
+        C:\Applications\7-Zip\7z.exe T12-MAI-2010.tar.gz
+        C:\Applications\7-Zip\7z.exe Image.tar.gz
+      displayName: "Extracting Data Archives"
+    - script: |
+        cd $(Build.BinariesDirectory)
+        $(Agent.WorkFolder)/../../cmake-3.16.2-win64-x64/bin/cmake.exe -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+      displayName: 'Configure DREAM3D'

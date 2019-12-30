@@ -13,7 +13,11 @@ Continuous Integration for DREAM.3D Builds
 
 ## Updating all the submodules to the latest 'develop' branch ##
 
-    [DREAN3DCI]$ git submodule foreach git pull origin develop
+    [DREAN3DCI]$ git submodule foreach "(git reset --hard;git checkout develop;git pull --rebase origin develop)"
+    [DREAN3DCI]$ git add .
+    [DREAN3DCI]$ git commit -s -a -m "Updating submodules"
+
+If you want to show the commit hash and commit date of each submodule you can try this:
+    [DREAN3DCI]$ git submodule foreach "(git rev-parse --verify HEAD;git log -1 --pretty='%cd' --date=format:%Y-%m-%d-%H:%M:%S)"
 
 ## Add/Update the Remote for the Repositories that you wish to test ##
-

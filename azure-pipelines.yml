@@ -5,7 +5,7 @@
 stages:
 - stage: Build
   jobs:
-  - job: macOS (10.14)
+  - job: macOS_10_14
     timeoutInMinutes: 120
     workspace:
       clean: all
@@ -64,7 +64,7 @@ stages:
         rm -rf T12-MAI-2010
         rm -rf Image
       displayName: "Cleaning Data Archives"
-  - job: Windows 10 (19.03)
+  - job: Windows_10_19_03
     timeoutInMinutes: 120
     workspace:
       clean: all
@@ -124,7 +124,7 @@ stages:
         del T12-MAI-2010.tar
         del Image.tar
       displayName: "Cleaning Data Archives"
-  - job: Linux (Ubuntu 16.04)
+  - job: Linux_Ubuntu_16_04
     timeoutInMinutes: 120
     workspace:
       clean: all

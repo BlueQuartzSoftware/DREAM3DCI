@@ -4,7 +4,7 @@
 	branch = develop
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
+	url = https://github.com/imikejackson/SIMPL
 	branch = feature/filter_parameter_callback_from_widget
 [submodule "SIMPLView"]
 	path = SIMPLView

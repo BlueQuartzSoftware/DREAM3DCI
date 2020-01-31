@@ -1,11 +1,11 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
 	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	branch = feature/MontageDataStructure
 [submodule "SIMPL"]
 	path = SIMPL
 	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	branch = feature/MontageDataStructure
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView
@@ -17,7 +17,7 @@
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
 	url = https://github.com/bluequartzsoftware/ITKImageProcessing
-	branch = develop
+	branch = feature/Blend_Grayscale
 [submodule "DREAM3D_Plugins/SimulationIO"]
 	path = DREAM3D_Plugins/SimulationIO
 	url = https://github.com/bluequartzsoftware/SimulationIO

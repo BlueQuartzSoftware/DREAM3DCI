@@ -1,11 +1,11 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
-	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	url = https://github.com/jduffeybq/DREAM3D
+	branch = feature/template
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	url = https://github.com/jduffeybq/SIMPL
+	branch = feature/template
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView
@@ -16,20 +16,20 @@
 	branch = develop
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
-	url = https://github.com/bluequartzsoftware/ITKImageProcessing
-	branch = develop
+	url = https://github.com/jduffeybq/ITKImageProcessing
+	branch = feature/template
 [submodule "DREAM3D_Plugins/SimulationIO"]
 	path = DREAM3D_Plugins/SimulationIO
-	url = https://github.com/bluequartzsoftware/SimulationIO
-	branch = develop
+	url = https://github.com/jduffeybq/SimulationIO
+	branch = feature/template
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
-	url = https://github.com/dream3d/DREAM3DReview
-	branch = develop
+	url = https://github.com/jduffeybq/DREAM3DReview
+	branch = feature/template
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities
-	url = https://github.com/dream3d/UCSBUtilities
-	branch = develop
+	url = https://github.com/jduffeybq/UCSBUtilities
+	branch = feature/template
 [submodule "DREAM3D_Data"]
 	path = DREAM3D_Data
 	url = https://github.com/dream3d/DREAM3D_Data

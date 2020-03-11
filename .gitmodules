@@ -1,36 +1,36 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
-	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	url = https://github.com/imikejackson/DREAM3D
+	branch = topic/qt59_514_compatibility
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	url = https://github.com/imikejackson/SIMPL
+	branch = topic/qt59_514_compatibility
 [submodule "SIMPLView"]
 	path = SIMPLView
-	url = https://github.com/bluequartzsoftware/SIMPLView
-	branch = develop
+	url = https://github.com/imikejackson/SIMPLView
+	branch = topic/qt59_514_compatibility
 [submodule "CMP"]
 	path = CMP
-	url = https://github.com/bluequartzsoftware/CMP
-	branch = develop
+	url = https://github.com/imikejackson/CMP
+	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
-	url = https://github.com/bluequartzsoftware/ITKImageProcessing
-	branch = develop
+	url = https://github.com/imikejackson/ITKImageProcessing
+	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Plugins/SimulationIO"]
 	path = DREAM3D_Plugins/SimulationIO
-	url = https://github.com/bluequartzsoftware/SimulationIO
-	branch = develop
+	url = https://github.com/imikejackson/SimulationIO
+	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
 	url = https://github.com/dream3d/DREAM3DReview
-	branch = develop
+	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities
 	url = https://github.com/dream3d/UCSBUtilities
-	branch = develop
+	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Data"]
 	path = DREAM3D_Data
 	url = https://github.com/dream3d/DREAM3D_Data
-	branch = develop
+	branch = topic/qt59_514_compatibility

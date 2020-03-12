@@ -24,11 +24,11 @@
 	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
-	url = https://github.com/dream3d/DREAM3DReview
+	url = https://github.com/imikejackson/DREAM3DReview
 	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities
-	url = https://github.com/dream3d/UCSBUtilities
+	url = https://github.com/imikejackson/UCSBUtilities
 	branch = topic/qt59_514_compatibility
 [submodule "DREAM3D_Data"]
 	path = DREAM3D_Data

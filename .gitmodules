@@ -1,7 +1,7 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
-	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	url = https://github.com/jduffeybq/DREAM3D
+	branch = feature/HierarchicalSmooth
 [submodule "SIMPL"]
 	path = SIMPL
 	url = https://github.com/bluequartzsoftware/SIMPL

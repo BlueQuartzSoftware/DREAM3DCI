@@ -13,6 +13,7 @@
 [submodule "CMP"]
 	path = CMP
 	url = https://github.com/bluequartzsoftware/CMP
+	branch = develop
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
 	url = https://github.com/bluequartzsoftware/ITKImageProcessing
@@ -32,4 +33,4 @@
 [submodule "DREAM3D_Data"]
 	path = DREAM3D_Data
 	url = https://github.com/dream3d/DREAM3D_Data
-	branch = topic/python-changes
+	branch = develop

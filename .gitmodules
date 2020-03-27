@@ -1,11 +1,11 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
-	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	url = https://github.com/imikejackson/DREAM3D
+	branch =  topic/orientationlib-updates
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	url = https://github.com/imikejackson/SIMPL
+	branch = topic/orientationlib-updates
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView
@@ -24,8 +24,8 @@
 	branch = develop
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
-	url = https://github.com/dream3d/DREAM3DReview
-	branch = develop
+	url = https://github.com/imikejackson/DREAM3DReview
+	branch = topic/orientationlib-updates
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities
 	url = https://github.com/dream3d/UCSBUtilities

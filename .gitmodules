@@ -28,7 +28,7 @@
 	branch = topic/orientationlib-updates
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities
-	url = https://github.com/dream3d/UCSBUtilities
+	url = https://github.com/imikejackson/UCSBUtilities
 	branch = develop
 [submodule "DREAM3D_Data"]
 	path = DREAM3D_Data

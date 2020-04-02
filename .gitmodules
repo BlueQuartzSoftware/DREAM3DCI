@@ -36,10 +36,10 @@
 	branch = develop
 [submodule "H5Support"]
 	path = H5Support
-	url = ssh://git@github.com/imikejackson/H5Support
+	url = https://github.com/imikejackson/H5Support
 	branch = topic/stand-alone-ebsdlib
 [submodule "EbsdLib"]
 	path = EbsdLib
-	url = ssh://git@github.com/imikejackson/EbsdLib
+	url = https://github.com/imikejackson/EbsdLib
   branch = topic/stand-alone-ebsdlib
 

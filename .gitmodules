@@ -1,36 +1,45 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
 	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "SIMPL"]
 	path = SIMPL
 	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "CMP"]
 	path = CMP
 	url = https://github.com/bluequartzsoftware/CMP
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
 	url = https://github.com/bluequartzsoftware/ITKImageProcessing
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "DREAM3D_Plugins/SimulationIO"]
 	path = DREAM3D_Plugins/SimulationIO
 	url = https://github.com/bluequartzsoftware/SimulationIO
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
 	url = https://github.com/dream3d/DREAM3DReview
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities
 	url = https://github.com/dream3d/UCSBUtilities
-	branch = develop
+	branch = topic/stand-alone-ebsdlib
 [submodule "DREAM3D_Data"]
 	path = DREAM3D_Data
 	url = https://github.com/dream3d/DREAM3D_Data
 	branch = develop
+[submodule "H5Support"]
+	path = H5Support
+	url = ssh://git@github.com/imikejackson/H5Support
+	branch = topic/stand-alone-ebsdlib
+[submodule "EbsdLib"]
+	path = EbsdLib
+	url = ssh://git@github.com/imikejackson/EbsdLib
+  branch = topic/stand-alone-ebsdlib
+

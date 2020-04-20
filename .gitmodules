@@ -34,3 +34,11 @@
 	path = DREAM3D_Data
 	url = https://github.com/dream3d/DREAM3D_Data
 	branch = develop
+[submodule "EbsdLib"]
+	path = EbsdLib
+	url = https://github.com/BlueQuartzSoftware/EbsdLib
+	branch = develop
+[submodule "H5Support"]
+	path = H5Support
+	url = https://github.com/BlueQuartzSoftware/H5Support
+	branch = develop

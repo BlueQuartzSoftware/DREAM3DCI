@@ -105,9 +105,6 @@ stages:
         $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\cmake --build . --config Release --target all
       displayName: 'Compile DREAM3D'
     - script: |
-        $(Build.BinariesDirectory)\Anaconda\package.bat
-      displayName: 'Prepare Anaconda Site Package'
-    - script: |
         cd $(Build.BinariesDirectory)
         $(Agent.WorkFolder)\..\cmake-3.16.2-win64-x64\bin\ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'

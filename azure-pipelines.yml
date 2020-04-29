@@ -44,7 +44,7 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/DREAM3D
+        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DSIMPL_USE_ANACONDA_PYTHON:BOOL=ON -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -98,7 +98,7 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DSIMPL_USE_ANACONDA_PYTHON:BOOL=ON -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -160,7 +160,7 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/DREAM3D
+        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DSIMPL_USE_ANACONDA_PYTHON:BOOL=ON -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)

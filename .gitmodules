@@ -12,8 +12,8 @@
 	branch = develop
 [submodule "CMP"]
 	path = CMP
-	url = https://github.com/bluequartzsoftware/CMP
-	branch = develop
+	url = https://github.com/JDuffeyBQ/CMP
+	branch = feature/endian
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
 	url = https://github.com/bluequartzsoftware/ITKImageProcessing

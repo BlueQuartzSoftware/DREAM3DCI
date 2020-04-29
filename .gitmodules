@@ -1,7 +1,7 @@
 [submodule "DREAM3D"]
 	path = DREAM3D
-	url = https://github.com/bluequartzsoftware/DREAM3D
-	branch = develop
+	url = https://github.com/JDuffeyBQ/DREAM3D
+	branch = feature/conda
 [submodule "SIMPL"]
 	path = SIMPL
 	url = https://github.com/JDuffeyBQ/SIMPL

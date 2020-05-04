@@ -13,7 +13,10 @@ Continuous Integration for DREAM.3D Builds
 
 ## Updating all the submodules to the latest 'develop' branch ##
 
+    [DREAN3DCI]$ git checkout master
+    [DREAN3DCI]$ git submodule foreach git checkout develop
     [DREAN3DCI]$ git submodule foreach git pull origin develop
+    [DREAN3DCI]$ git commit -s -a -m "Updating all submodules"
+    [DREAN3DCI]$ git push origin master
 
 ## Add/Update the Remote for the Repositories that you wish to test ##
-

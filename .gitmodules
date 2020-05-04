@@ -4,8 +4,8 @@
 	branch = develop
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	url = https://github.com/JDuffeyBQ/SIMPL
+	branch = feature/iterator
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView
@@ -16,8 +16,8 @@
 	branch = develop
 [submodule "DREAM3D_Plugins/ITKImageProcessing"]
 	path = DREAM3D_Plugins/ITKImageProcessing
-	url = https://github.com/bluequartzsoftware/ITKImageProcessing
-	branch = develop
+	url = https://github.com/JDuffeyBQ/ITKImageProcessing
+	branch = feature/iterator
 [submodule "DREAM3D_Plugins/SimulationIO"]
 	path = DREAM3D_Plugins/SimulationIO
 	url = https://github.com/bluequartzsoftware/SimulationIO
@@ -36,8 +36,8 @@
 	branch = develop
 [submodule "EbsdLib"]
 	path = EbsdLib
-	url = https://github.com/BlueQuartzSoftware/EbsdLib
-	branch = develop
+	url = https://github.com/JDuffeyBQ/EbsdLib
+	branch = feature/iterator
 [submodule "H5Support"]
 	path = H5Support
 	url = https://github.com/BlueQuartzSoftware/H5Support

@@ -4,8 +4,8 @@
 	branch = develop
 [submodule "SIMPL"]
 	path = SIMPL
-	url = https://github.com/bluequartzsoftware/SIMPL
-	branch = develop
+	url = https://github.com/JDuffeyBQ/SIMPL
+	branch = feature/python_bin
 [submodule "SIMPLView"]
 	path = SIMPLView
 	url = https://github.com/bluequartzsoftware/SIMPLView

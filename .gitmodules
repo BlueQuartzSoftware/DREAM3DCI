@@ -24,7 +24,7 @@
 	branch = develop
 [submodule "DREAM3D_Plugins/DREAM3DReview"]
 	path = DREAM3D_Plugins/DREAM3DReview
-	url = https://github.com/dream3d/DREAM3DReview
+	url = https://github.com/sdonegan/DREAM3DReview
 	branch = develop
 [submodule "DREAM3D_Plugins/UCSBUtilities"]
 	path = DREAM3D_Plugins/UCSBUtilities

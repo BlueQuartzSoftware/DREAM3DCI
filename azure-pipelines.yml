@@ -25,6 +25,11 @@ stages:
         echo Build.BuildNumber=$(Build.BuildNumber)
       displayName: 'Dump Azure Variables'
     - script: |
+        cd $(Build.Repository.LocalPath)
+        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake  -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
+        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake  --build $(Build.Repository.LocalPath)/Build
+      displayName: 'Clone Repositories'
+    - script: |
         cd $(Build.BinariesDirectory)
         if [ -f "CMakeCache.txt" ]; then
           rm CMakeCache.txt

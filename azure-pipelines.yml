@@ -154,7 +154,8 @@ stages:
         cd $(Build.Repository.LocalPath)
         $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake  -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
         $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake  --build $(Build.Repository.LocalPath)/Build
-      displayName: 'Clone Repositories'    - script: |
+      displayName: 'Clone Repositories'    
+    - script: |
         cd $(Build.BinariesDirectory)
         if [ -f "CMakeCache.txt" ]; then
           rm CMakeCache.txt

@@ -147,13 +147,13 @@ function(CloneRepo)
   cmake_parse_arguments(Z "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
   set(projectName ${Z_PROJECT_NAME})
-  message(STATUS "Cloning ${projectName} in ${DREAM3DCI_SOURCE_DIR}/${Z_SUBDIR}/${${projectName}_REPO_NAME}" )
+  message(STATUS "Cloning ${projectName} in ${DREAM3D_WORKSPACE}/${Z_SUBDIR}${${projectName}_REPO_NAME}" )
   ExternalProject_Add(${projectName}
   #  DEPENDS      ${Z_DEPENDS}
     TMP_DIR      ${DREAM3DCI_BINARY_DIR}/${projectName}/temp
     STAMP_DIR    ${DREAM3DCI_BINARY_DIR}/${projectName}/stamp
     DOWNLOAD_DIR ${DREAM3DCI_BINARY_DIR}/${projectName}/download
-    SOURCE_DIR   ${DREAM3D_WORKSPACE}/${Z_SUBDIR}/${${projectName}_REPO_NAME}
+    SOURCE_DIR   ${DREAM3D_WORKSPACE}/${Z_SUBDIR}${${projectName}_REPO_NAME}
     BINARY_DIR   ${DREAM3DCI_BINARY_DIR}/${projectName}/binary
     INSTALL_DIR  ${DREAM3DCI_BINARY_DIR}/${projectName}/install
 
@@ -193,11 +193,11 @@ foreach(plugin ${DREAM3D_Base_Repos})
 endforeach()
 
 foreach(plugin ${GitHub_BLUEQUARTZ_Plugins})
-  CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins")
+  CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins/")
 endforeach()
 
 foreach(plugin ${GitHub_DREAM3D_Plugins})
-  CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins")
+  CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins/")
 endforeach()
 
 

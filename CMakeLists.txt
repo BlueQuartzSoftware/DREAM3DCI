@@ -3,32 +3,29 @@ cmake_minimum_required(VERSION 3.14.0)
 
 #------------------------------------------------------------------------------
 # Create the Top level Project
-#
-project(DREAM3DCI VERSION 2.0.0.0)
 
+project(DREAM3DCI VERSION 2.0.0.0 LANGUAGES NONE)
+
+#------------------------------------------------------------------------------
 # This allows us to just use the "include()" command and the name of the project
 set(CMAKE_MODULE_PATH 
         "${CMAKE_CURRENT_SOURCE_DIR}/cmake" 
         "${CMAKE_CURRENT_SOURCE_DIR}/projects" 
         ${CMAKE_MODULE_PATH})
 
-# Set up some standard defaults, these will be passed down into external the
-# projects.
+#------------------------------------------------------------------------------
+# Include our custom CMake functions
 include(BuildType)
 include(BuildLocation)
 include(ExternalProject)
 include(download_dir)
 
-#--------------------------------------------------------------------------------------------------
-# Are we Fetching DREAM3D itself
-#--------------------------------------------------------------------------------------------------
-set(extProjectName "DREAM3D")
-
-set(CLONE_REPOS TRUE)
-
+#------------------------------------------------------------------------------
+# Set the "Workspace Folder"
 set(DREAM3D_WORKSPACE ${DREAM3DCI_SOURCE_DIR}/Workspace)
 
-# Reset the variables here because we just messed with the internal layout and cmake will complain.
+#------------------------------------------------------------------------------
+# List the core set of repositories
 set(DREAM3D_Base_Repos
   CMP
   SIMPL
@@ -95,6 +92,7 @@ set(Data_BASE_URL "https://www.github.com")
 set(Data_GH_ORG "dream3d")
 set(Data_GIT_BRANCH "develop")
 
+
 set(GitHub_BLUEQUARTZ_Plugins
   ITKImageProcessing
   SimulationIO
@@ -115,6 +113,7 @@ set(SimulationIO_REPO_NAME "SimulationIO")
 set(SimulationIO_BASE_URL "https://www.github.com")
 set(SimulationIO_GH_ORG "bluequartzsoftware")
 set(SimulationIO_GIT_BRANCH "develop")
+
 
 set(GitHub_DREAM3D_Plugins
   DREAM3DReview
@@ -138,17 +137,8 @@ set(UCSBUtilities_GH_ORG "dream3d")
 set(UCSBUtilities_GIT_BRANCH "develop")
 
 
-if(EXISTS ${DREAM3D_WORKSPACE}/DREAM3D)
-  message(STATUS "*------------------------------------------------------------")
-  message(STATUS "*  The directory ${DREAM3D_WORKSPACE}/DREAM3D")
-  message(STATUS "*  WILL be over written with a fresh checkout. If you have any unsaved changes")
-  message(STATUS "*  or commits that need to be pushed. DO THAT BEFORE starting the")
-  message(STATUS "*  build process.")
-  message(STATUS "*------------------------------------------------------------")
-endif()
-
 #------------------------------------------------------------------------------
-#
+# Function to clone the repository using ExternalProject_Add
 #------------------------------------------------------------------------------
 function(CloneRepo)
   set(options )
@@ -197,18 +187,18 @@ if("${DREAM3D_WORKSPACE}" STREQUAL "")
     repositories. Anything in that directory may be over written.")
 endif()
 
-if(CLONE_REPOS)
-  foreach(plugin ${DREAM3D_Base_Repos})
-    CloneRepo(PROJECT_NAME ${plugin} )
-  endforeach()
 
-  foreach(plugin ${GitHub_BLUEQUARTZ_Plugins})
-    CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins")
-  endforeach()
+foreach(plugin ${DREAM3D_Base_Repos})
+  CloneRepo(PROJECT_NAME ${plugin} )
+endforeach()
 
-  foreach(plugin ${GitHub_DREAM3D_Plugins})
-    CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins")
-  endforeach()
+foreach(plugin ${GitHub_BLUEQUARTZ_Plugins})
+  CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins")
+endforeach()
 
-endif()
+foreach(plugin ${GitHub_DREAM3D_Plugins})
+  CloneRepo(PROJECT_NAME ${plugin} SUBDIR "DREAM3D_Plugins")
+endforeach()
+
+
 

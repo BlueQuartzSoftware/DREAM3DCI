@@ -21,8 +21,8 @@ set(CMP_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(SIMPL_REPO_NAME "SIMPL")
 set(SIMPL_BASE_URL "https://www.github.com")
-set(SIMPL_GH_ORG "bluequartzsoftware")
-set(SIMPL_GIT_BRANCH "develop")
+set(SIMPL_GH_ORG "JDuffeyBQ")
+set(SIMPL_GIT_BRANCH "feature/python_generation")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPLView Details

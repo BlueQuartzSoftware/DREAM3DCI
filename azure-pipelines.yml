@@ -25,6 +25,11 @@ stages:
         echo Build.BuildNumber=$(Build.BuildNumber)
       displayName: 'Dump Azure Variables'
     - script: |
+        cd $(Build.Repository.LocalPath)
+        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
+        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake  --build $(Build.Repository.LocalPath)/Build
+      displayName: 'Clone Repositories'
+    - script: |
         cd $(Build.BinariesDirectory)
         if [ -f "CMakeCache.txt" ]; then
           rm CMakeCache.txt
@@ -37,14 +42,14 @@ stages:
         fi
       displayName: 'Clean Build Directory'
     - script: |
-        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
         /usr/bin/tar -xvzf SmallIN100.tar.gz
         /usr/bin/tar -xvzf T12-MAI-2010.tar.gz
         /usr/bin/tar -xvzf Image.tar.gz
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/DREAM3D
+        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -59,7 +64,7 @@ stages:
         $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
-        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
         rm -rf SmallIN100
         rm -rf T12-MAI-2010
         rm -rf Image
@@ -88,7 +93,12 @@ stages:
         echo Build.BuildNumber=$(Build.BuildNumber)
       displayName: 'Dump Azure Variables'
     - script: |
-        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        cd $(Build.Repository.LocalPath)
+        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe  -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
+        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe  --build $(Build.Repository.LocalPath)/Build
+      displayName: 'Clone Repositories'
+    - script: |
+        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
         C:\Applications\7-Zip\7z.exe x SmallIN100.tar.gz
         C:\Applications\7-Zip\7z.exe x SmallIN100.tar
         C:\Applications\7-Zip\7z.exe x T12-MAI-2010.tar.gz
@@ -98,7 +108,7 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/DREAM3D
+        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/Workspace/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -113,7 +123,7 @@ stages:
         $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
-        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
         rd /S /Q SmallIN100
         rd /S /Q T12-MAI-2010
         rd /S /Q Image
@@ -141,6 +151,11 @@ stages:
         echo Build.BuildNumber=$(Build.BuildNumber)
       displayName: 'Dump Azure Variables'
     - script: |
+        cd $(Build.Repository.LocalPath)
+        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake  -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
+        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake  --build $(Build.Repository.LocalPath)/Build
+      displayName: 'Clone Repositories'    
+    - script: |
         cd $(Build.BinariesDirectory)
         if [ -f "CMakeCache.txt" ]; then
           rm CMakeCache.txt
@@ -153,14 +168,14 @@ stages:
         fi
       displayName: 'Clean Build Directory'
     - script: |
-        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
         /bin/tar -xvzf SmallIN100.tar.gz
         /bin/tar -xvzf T12-MAI-2010.tar.gz
         /bin/tar -xvzf Image.tar.gz
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/DREAM3D
+        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -175,7 +190,7 @@ stages:
         $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
-        cd $(Build.Repository.LocalPath)/DREAM3D_Data/Data
+        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
         /bin/rm -rf SmallIN100
         /bin/rm -rf T12-MAI-2010
         /bin/rm -rf Image

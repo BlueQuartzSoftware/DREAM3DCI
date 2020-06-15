@@ -46,7 +46,7 @@ set(H5Support_GIT_BRANCH "develop")
 set(EbsdLib_REPO_NAME "EbsdLib")
 set(EbsdLib_BASE_URL "https://www.github.com")
 set(EbsdLib_GH_ORG "bluequartzsoftware")
-set(EbsdLib_GIT_BRANCH "develop")
+set(EbsdLib_GIT_BRANCH "topic/quat_api_change")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D Details
@@ -54,7 +54,7 @@ set(EbsdLib_GIT_BRANCH "develop")
 set(DREAM3D_REPO_NAME "DREAM3D")
 set(DREAM3D_BASE_URL "https://www.github.com")
 set(DREAM3D_GH_ORG "bluequartzsoftware")
-set(DREAM3D_GIT_BRANCH "develop")
+set(DREAM3D_GIT_BRANCH "topic/quat_api_change")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D_Data Details

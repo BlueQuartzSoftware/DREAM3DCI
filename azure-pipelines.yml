@@ -131,7 +131,7 @@ stages:
         del T12-MAI-2010.tar
         del Image.tar
       displayName: "Cleaning Data Archives"
-  - job: Linux_Ubuntu_16_04
+  - job: Linux_Ubuntu_18_04
     timeoutInMinutes: 120
     workspace:
       clean: all

@@ -92,7 +92,7 @@ set(SimulationIO_GIT_BRANCH "topic/ebsd_lib_remove_qt")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
+set(DREAM3DReview_GH_ORG "imikejackson")
 set(DREAM3DReview_GIT_BRANCH "topic/ebsd_lib_remove_qt")
 
 #--------------------------------------------------------------------------------------------------
@@ -100,5 +100,5 @@ set(DREAM3DReview_GIT_BRANCH "topic/ebsd_lib_remove_qt")
 #--------------------------------------------------------------------------------------------------
 set(UCSBUtilities_REPO_NAME "UCSBUtilities")
 set(UCSBUtilities_BASE_URL "https://www.github.com")
-set(UCSBUtilities_GH_ORG "dream3d")
+set(UCSBUtilities_GH_ORG "imikejackson")
 set(UCSBUtilities_GIT_BRANCH "topic/ebsd_lib_remove_qt")

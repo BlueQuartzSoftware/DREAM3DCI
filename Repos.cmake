@@ -62,7 +62,7 @@ set(DREAM3D_GIT_BRANCH "topic/ebsd_lib_remove_qt")
 set(DREAM3D_Data_REPO_NAME "DREAM3D_Data")
 set(DREAM3D_Data_BASE_URL "https://www.github.com")
 set(DREAM3D_Data_GH_ORG "dream3d")
-set(DREAM3D_Data_GIT_BRANCH "topic/ebsd_lib_remove_qt")
+set(DREAM3D_Data_GIT_BRANCH "develop")
 
 set(DREAM3D_Plugins
   ITKImageProcessing

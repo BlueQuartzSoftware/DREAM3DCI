@@ -92,13 +92,13 @@ set(SimulationIO_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "JDuffeyBQ")
+set(DREAM3DReview_GIT_BRANCH "topic/quat_api_change")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details
 #--------------------------------------------------------------------------------------------------
 set(UCSBUtilities_REPO_NAME "UCSBUtilities")
 set(UCSBUtilities_BASE_URL "https://www.github.com")
-set(UCSBUtilities_GH_ORG "dream3d")
-set(UCSBUtilities_GIT_BRANCH "develop")
+set(UCSBUtilities_GH_ORG "JDuffeyBQ")
+set(UCSBUtilities_GIT_BRANCH "topic/quat_api_change")

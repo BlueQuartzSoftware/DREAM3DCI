@@ -13,8 +13,8 @@ set(DREAM3D_Base_Repos
 #--------------------------------------------------------------------------------------------------
 set(CMP_REPO_NAME "CMP")
 set(CMP_BASE_URL "https://www.github.com")
-set(CMP_GH_ORG "bluequartzsoftware")
-set(CMP_GIT_BRANCH "develop")
+set(CMP_GH_ORG "JDuffeyBQ")
+set(CMP_GIT_BRANCH "feature/itk_include_dirs")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPL Details
@@ -76,8 +76,8 @@ set(DREAM3D_Plugins
 #--------------------------------------------------------------------------------------------------
 set(ITKImageProcessing_REPO_NAME "ITKImageProcessing")
 set(ITKImageProcessing_BASE_URL "https://www.github.com")
-set(ITKImageProcessing_GH_ORG "bluequartzsoftware")
-set(ITKImageProcessing_GIT_BRANCH "develop")
+set(ITKImageProcessing_GH_ORG "JDuffeyBQ")
+set(ITKImageProcessing_GIT_BRANCH "feature/itk_include_dirs")
 
 #--------------------------------------------------------------------------------------------------
 # SimulationIO Details
@@ -92,8 +92,8 @@ set(SimulationIO_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "JDuffeyBQ")
+set(DREAM3DReview_GIT_BRANCH "feature/itk_include_dirs")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details

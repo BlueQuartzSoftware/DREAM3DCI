@@ -21,8 +21,8 @@ set(CMP_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(SIMPL_REPO_NAME "SIMPL")
 set(SIMPL_BASE_URL "https://www.github.com")
-set(SIMPL_GH_ORG "bluequartzsoftware")
-set(SIMPL_GIT_BRANCH "develop")
+set(SIMPL_GH_ORG "JDuffeyBQ")
+set(SIMPL_GIT_BRANCH "feature/attribute")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPLView Details
@@ -37,16 +37,16 @@ set(SIMPLView_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(H5Support_REPO_NAME "H5Support")
 set(H5Support_BASE_URL "https://www.github.com")
-set(H5Support_GH_ORG "bluequartzsoftware")
-set(H5Support_GIT_BRANCH "develop")
+set(H5Support_GH_ORG "JDuffeyBQ")
+set(H5Support_GIT_BRANCH "feature/attribute")
 
 #--------------------------------------------------------------------------------------------------
 # EbsdLib Details
 #--------------------------------------------------------------------------------------------------
 set(EbsdLib_REPO_NAME "EbsdLib")
 set(EbsdLib_BASE_URL "https://www.github.com")
-set(EbsdLib_GH_ORG "bluequartzsoftware")
-set(EbsdLib_GIT_BRANCH "develop")
+set(EbsdLib_GH_ORG "JDuffeyBQ")
+set(EbsdLib_GIT_BRANCH "feature/attribute")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D Details
@@ -92,8 +92,8 @@ set(SimulationIO_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "JDuffeyBQ")
+set(DREAM3DReview_GIT_BRANCH "feature/attribute")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details

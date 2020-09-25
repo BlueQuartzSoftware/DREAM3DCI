@@ -21,8 +21,8 @@ set(CMP_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(SIMPL_REPO_NAME "SIMPL")
 set(SIMPL_BASE_URL "https://www.github.com")
-set(SIMPL_GH_ORG "bluequartzsoftware")
-set(SIMPL_GIT_BRANCH "develop")
+set(SIMPL_GH_ORG "JDuffeyBQ")
+set(SIMPL_GIT_BRANCH "feature/math_constants")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPLView Details
@@ -53,8 +53,8 @@ set(EbsdLib_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3D_REPO_NAME "DREAM3D")
 set(DREAM3D_BASE_URL "https://www.github.com")
-set(DREAM3D_GH_ORG "bluequartzsoftware")
-set(DREAM3D_GIT_BRANCH "develop")
+set(DREAM3D_GH_ORG "JDuffeyBQ")
+set(DREAM3D_GIT_BRANCH "feature/math_constants")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D_Data Details
@@ -84,21 +84,21 @@ set(ITKImageProcessing_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(SimulationIO_REPO_NAME "SimulationIO")
 set(SimulationIO_BASE_URL "https://www.github.com")
-set(SimulationIO_GH_ORG "bluequartzsoftware")
-set(SimulationIO_GIT_BRANCH "develop")
+set(SimulationIO_GH_ORG "JDuffeyBQ")
+set(SimulationIO_GIT_BRANCH "feature/math_constants")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3DReview Details
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "JDuffeyBQ")
+set(DREAM3DReview_GIT_BRANCH "feature/math_constants")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details
 #--------------------------------------------------------------------------------------------------
 set(UCSBUtilities_REPO_NAME "UCSBUtilities")
 set(UCSBUtilities_BASE_URL "https://www.github.com")
-set(UCSBUtilities_GH_ORG "dream3d")
-set(UCSBUtilities_GIT_BRANCH "develop")
+set(UCSBUtilities_GH_ORG "JDuffeyBQ")
+set(UCSBUtilities_GIT_BRANCH "feature/math_constants")

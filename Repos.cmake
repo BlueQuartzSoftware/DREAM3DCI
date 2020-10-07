@@ -45,8 +45,8 @@ set(H5Support_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(EbsdLib_REPO_NAME "EbsdLib")
 set(EbsdLib_BASE_URL "https://www.github.com")
-set(EbsdLib_GH_ORG "bluequartzsoftware")
-set(EbsdLib_GIT_BRANCH "develop")
+set(EbsdLib_GH_ORG "JDuffeyBQ")
+set(EbsdLib_GIT_BRANCH "feature/warning_fixes")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D Details

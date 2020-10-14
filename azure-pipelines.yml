@@ -1,11 +1,11 @@
 strategy:
   matrix:
-    linux:
-      imageName: 'linux'
-    mac:
+    macOS_10_14:
       imageName: 'Darwin'
-    windows:
+    Windows_10_19_03:
       imageName: 'Windows_NT'
+    Linux_Ubuntu_18_04:
+      imageName: 'Linux'
 
 pool:
   name: BlueQuartz Self Hosted
@@ -33,28 +33,28 @@ steps:
   displayName: 'Dump Azure Variables'
 
 - script: |
-    $(CMake) -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir)
-    $(CMake) --build $(ci_build_dir)
+    cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir)
+    cmake --build $(ci_build_dir)
   displayName: Clone Repositories
 
 - script: |
     cd $(d3d_data_dir)
-    $(CMake) -E tar xv SmallIN100.tar.gz
-    $(CMake) -E tar xv T12-MAI-2010.tar.gz
-    $(CMake) -E tar xv Image.tar.gz
+    cmake -E tar xv SmallIN100.tar.gz
+    cmake -E tar xv T12-MAI-2010.tar.gz
+    cmake -E tar xv Image.tar.gz
   displayName: Extracting Data Archives
 
 - script: |
-    $(CMake) -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(dream3d_source_dir)
+    cmake -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(dream3d_source_dir)
   displayName: Configure DREAM3D
 
 - script: |
-    $(CMake) --build $(Build.BinariesDirectory) --config Release --target all
+    cmake --build $(Build.BinariesDirectory) --config Release --target all
   displayName: Build DREAM3D
 
 - script: |
     cd $(Build.BinariesDirectory)
-    $(CTest) -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
+    ctest -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
   displayName: Testing DREAM3D
 
 - task: PublishTestResults@2
@@ -64,5 +64,5 @@ steps:
 
 - script: |
     cd $(Build.BinariesDirectory)
-    $(CPack) -C Release -V
+    cpack -C Release -V
   displayName: Packing DREAM3D

@@ -6,6 +6,8 @@ stages:
 - stage: Build
   jobs:
   - job: macOS_10_14
+    variables:
+      cmake_dir: '$(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents'
     timeoutInMinutes: 120
     workspace:
       clean: all
@@ -26,8 +28,8 @@ stages:
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.Repository.LocalPath)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build 
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake  --build $(Build.Repository.LocalPath)/Build
+        $(cmake_dir)/bin/cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
+        $(cmake_dir)/bin/cmake --build $(Build.Repository.LocalPath)/Build
       displayName: 'Clone Repositories'
     - script: |
         cd $(Build.BinariesDirectory)
@@ -49,19 +51,19 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
+        $(cmake_dir)/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cmake --build . --config Release --target all
+        $(cmake_dir)/bin/cmake --build . --config Release --target all
       displayName: 'Compile DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+        $(cmake_dir)/bin/ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents/bin/cpack --verbose
+        $(cmake_dir)/bin/cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
         cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
@@ -70,6 +72,8 @@ stages:
         rm -rf Image
       displayName: "Cleaning Data Archives"
   - job: Windows_10_19_03
+    variables:
+      cmake_dir: '$(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64'
     timeoutInMinutes: 120
     workspace:
       clean: all
@@ -94,8 +98,8 @@ stages:
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.Repository.LocalPath)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build -DCMAKE_MAKE_PROGRAM=C:/Applications/ninja-1.9.0/ninja.exe
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe  --build $(Build.Repository.LocalPath)/Build
+        $(cmake_dir)\bin\cmake.exe -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build -DCMAKE_MAKE_PROGRAM=C:/Applications/ninja-1.9.0/ninja.exe
+        $(cmake_dir)\bin\cmake.exe --build $(Build.Repository.LocalPath)/Build
       displayName: 'Clone Repositories'
     - script: |
         cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
@@ -108,19 +112,19 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake.exe -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Applications/ninja-1.9.0/ninja.exe -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/Workspace/DREAM3D
+        $(cmake_dir)\bin\cmake.exe -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Applications/ninja-1.9.0/ninja.exe -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/Workspace/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cmake --build . --config Release --target all
+        $(cmake_dir)\bin\cmake --build . --config Release --target all
       displayName: 'Compile DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+        $(cmake_dir)\bin\ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64\bin\cpack --verbose
+        $(cmake_dir)\bin\cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
         cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
@@ -132,6 +136,8 @@ stages:
         del Image.tar
       displayName: "Cleaning Data Archives"
   - job: Linux_Ubuntu_18_04
+    variables:
+      cmake_dir: '$(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64'
     timeoutInMinutes: 120
     workspace:
       clean: all
@@ -152,8 +158,8 @@ stages:
       displayName: 'Dump Azure Variables'
     - script: |
         cd $(Build.Repository.LocalPath)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake  -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake  --build $(Build.Repository.LocalPath)/Build
+        $(cmake_dir)/bin/cmake -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
+        $(cmake_dir)/bin/cmake --build $(Build.Repository.LocalPath)/Build
       displayName: 'Clone Repositories'    
     - script: |
         cd $(Build.BinariesDirectory)
@@ -175,19 +181,19 @@ stages:
       displayName: "Extracting Data Archives"
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
+        $(cmake_dir)/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
       displayName: 'Configure DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cmake --build . --config Release --target all
+        $(cmake_dir)/bin/cmake --build . --config Release --target all
       displayName: 'Compile DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
+        $(cmake_dir)/bin/ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
       displayName: 'Testing DREAM3D'
     - script: |
         cd $(Build.BinariesDirectory)
-        $(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64/bin/cpack --verbose
+        $(cmake_dir)/bin/cpack --verbose
       displayName: 'Packing DREAM3D'
     - script: |
         cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data

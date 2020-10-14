@@ -1,11 +1,11 @@
 strategy:
   matrix:
-    macOS_10_14:
-      imageName: 'Darwin'
-    Windows_10_19_03:
-      imageName: 'Windows_NT'
-    Linux_Ubuntu_18_04:
-      imageName: 'Linux'
+    macOS:
+      imageName: Darwin
+    Windows:
+      imageName: Windows_NT
+    Linux:
+      imageName: Linux
 
 pool:
   name: BlueQuartz Self Hosted
@@ -28,7 +28,7 @@ steps:
     echo Build.Repository.Name=$(Build.Repository.Name)
     echo Build.Repository.Uri=$(Build.Repository.Uri)
     echo Agent.WorkFolder=$(Agent.WorkFolder)
-    echo Agent.os=$(Agent.os)
+    echo Agent.Os=$(Agent.Os)
     echo Build.BuildNumber=$(Build.BuildNumber)
   displayName: 'Dump Azure Variables'
 
@@ -38,7 +38,7 @@ steps:
   displayName: Clone Repositories
 
 - script: |
-    cd $(d3d_data_dir)
+    cd $(d3d_data_dir)/Data
     cmake -E tar xv SmallIN100.tar.gz
     cmake -E tar xv T12-MAI-2010.tar.gz
     cmake -E tar xv Image.tar.gz
@@ -61,6 +61,7 @@ steps:
   inputs:
     testResultsFormat: CTest
     testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
+  displayName: Publish Test Results
 
 - script: |
     cd $(Build.BinariesDirectory)

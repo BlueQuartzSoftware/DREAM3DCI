@@ -45,7 +45,7 @@ steps:
   displayName: Extracting Data Archives
 
 - script: |
-    cmake -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(dream3d_source_dir)
+    cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
   displayName: Configure DREAM3D
 
 - script: |

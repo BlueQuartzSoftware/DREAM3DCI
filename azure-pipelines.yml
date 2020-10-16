@@ -1,69 +1,73 @@
-strategy:
-  matrix:
-    macOS:
-      imageName: Darwin
-    Windows:
-      imageName: Windows_NT
-    Linux:
-      imageName: Linux
+jobs:
+- job:
+  strategy:
+    matrix:
+      macOS:
+        imageName: Darwin
+      Windows:
+        imageName: Windows_NT
+      Linux:
+        imageName: Linux
 
-pool:
-  name: BlueQuartz Self Hosted
-  demands:
-    - Agent.Os -equals $(imageName)
+  pool:
+    name: BlueQuartz Self Hosted
+    demands:
+      - Agent.Os -equals $(imageName)
 
-workspace:
-  clean: all
+  workspace:
+    clean: all
 
-variables:
-  dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
-  ci_build_dir: $(Build.Repository.LocalPath)/Build
-  d3d_data_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data
+  timeoutInMinutes: 120
 
-steps:
-- script: |
-    echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
-    echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
-    echo Build.SourceBranchName=$(Build.SourceBranchName)
-    echo Build.Repository.Name=$(Build.Repository.Name)
-    echo Build.Repository.Uri=$(Build.Repository.Uri)
-    echo Agent.WorkFolder=$(Agent.WorkFolder)
-    echo Agent.Os=$(Agent.Os)
-    echo Build.BuildNumber=$(Build.BuildNumber)
-  displayName: 'Dump Azure Variables'
+  variables:
+    dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
+    ci_build_dir: $(Build.Repository.LocalPath)/Build
+    d3d_data_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data
 
-- script: |
-    cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir)
-    cmake --build $(ci_build_dir)
-  displayName: Clone Repositories
+  steps:
+  - script: |
+      echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
+      echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
+      echo Build.SourceBranchName=$(Build.SourceBranchName)
+      echo Build.Repository.Name=$(Build.Repository.Name)
+      echo Build.Repository.Uri=$(Build.Repository.Uri)
+      echo Agent.WorkFolder=$(Agent.WorkFolder)
+      echo Agent.Os=$(Agent.Os)
+      echo Build.BuildNumber=$(Build.BuildNumber)
+    displayName: 'Dump Azure Variables'
 
-- script: |
-    cd $(d3d_data_dir)/Data
-    cmake -E tar xv SmallIN100.tar.gz
-    cmake -E tar xv T12-MAI-2010.tar.gz
-    cmake -E tar xv Image.tar.gz
-  displayName: Extracting Data Archives
+  - script: |
+      cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir)
+      cmake --build $(ci_build_dir)
+    displayName: Clone Repositories
 
-- script: |
-    cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
-  displayName: Configure DREAM3D
+  - script: |
+      cd $(d3d_data_dir)/Data
+      cmake -E tar xv SmallIN100.tar.gz
+      cmake -E tar xv T12-MAI-2010.tar.gz
+      cmake -E tar xv Image.tar.gz
+    displayName: Extracting Data Archives
 
-- script: |
-    cmake --build $(Build.BinariesDirectory) --config Release --target all
-  displayName: Build DREAM3D
+  - script: |
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
+    displayName: Configure DREAM3D
 
-- script: |
-    cd $(Build.BinariesDirectory)
-    ctest -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
-  displayName: Testing DREAM3D
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --config Release --target all
+    displayName: Build DREAM3D
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: CTest
-    testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
-  displayName: Publish Test Results
+  - script: |
+      cd $(Build.BinariesDirectory)
+      ctest -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
+    displayName: Testing DREAM3D
 
-- script: |
-    cd $(Build.BinariesDirectory)
-    cpack -C Release -V
-  displayName: Packing DREAM3D
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: CTest
+      testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
+    displayName: Publish Test Results
+
+  - script: |
+      cd $(Build.BinariesDirectory)
+      cpack -C Release -V
+    displayName: Packing DREAM3D

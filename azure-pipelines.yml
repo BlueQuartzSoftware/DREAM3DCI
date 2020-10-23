@@ -1,204 +1,76 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-stages:
-- stage: Build
-  jobs:
-  - job: macOS_10_14
-    variables:
-      cmake_dir: '$(Agent.WorkFolder)/../cmake-3.16.6-Darwin-x86_64/CMake.app/Contents'
-    timeoutInMinutes: 120
-    workspace:
-      clean: all
-    pool:
-      name: BlueQuartz Self Hosted
-      demands:
-        - agent.os -equals Darwin
-    steps:
-    - script: |
-        echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
-        echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
-        echo Build.SourceBranchName=$(Build.SourceBranchName)
-        echo Build.Repository.Name=$(Build.Repository.Name)
-        echo Build.Repository.Uri=$(Build.Repository.Uri)
-        echo Agent.WorkFolder=$(Agent.WorkFolder)
-        echo Agent.os=$(Agent.os)
-        echo Build.BuildNumber=$(Build.BuildNumber)
-      displayName: 'Dump Azure Variables'
-    - script: |
-        cd $(Build.Repository.LocalPath)
-        $(cmake_dir)/bin/cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
-        $(cmake_dir)/bin/cmake --build $(Build.Repository.LocalPath)/Build
-      displayName: 'Clone Repositories'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        if [ -f "CMakeCache.txt" ]; then
-          rm CMakeCache.txt
-        fi
-        if [ -d "Bin" ]; then
-          rm -rf Bin
-        fi
-        if [ -d "SIMPLView" ]; then
-          rm -rf SIMPLView
-        fi
-      displayName: 'Clean Build Directory'
-    - script: |
-        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
-        /usr/bin/tar -xvzf SmallIN100.tar.gz
-        /usr/bin/tar -xvzf T12-MAI-2010.tar.gz
-        /usr/bin/tar -xvzf Image.tar.gz
-      displayName: "Extracting Data Archives"
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
-      displayName: 'Configure DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/cmake --build . --config Release --target all
-      displayName: 'Compile DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
-      displayName: 'Testing DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/cpack --verbose
-      displayName: 'Packing DREAM3D'
-    - script: |
-        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
-        rm -rf SmallIN100
-        rm -rf T12-MAI-2010
-        rm -rf Image
-      displayName: "Cleaning Data Archives"
-  - job: Windows_10_19_03
-    variables:
-      cmake_dir: '$(Agent.WorkFolder)\..\cmake-3.16.6-win64-x64'
-    timeoutInMinutes: 120
-    workspace:
-      clean: all
-    pool:
-      name: BlueQuartz Self Hosted
-      demands:
-        - agent.os -equals Windows_NT
-    steps:
-    - script: |
-        echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
-        echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
-        echo Build.SourceBranchName=$(Build.SourceBranchName)
-        echo Build.Repository.Name=$(Build.Repository.Name)
-        echo Build.Repository.Uri=$(Build.Repository.Uri)
-        echo Agent.WorkFolder=$(Agent.WorkFolder)
-        echo Agent.os=$(Agent.os)
-        echo Agent.Name=$(Agent.Name)
-        echo Agent.MachineName=$(Agent.MachineName)
-        echo Agent.OSArchitecture=$(Agent.OSArchitecture)
-        echo BUILDNAME=$(Agent.OS)-$(Agent.MachineName)-$(Build.SourceBranchName)_$(Build.BuildNumber)
-        echo Build.BuildNumber=$(Build.BuildNumber)
-      displayName: 'Dump Azure Variables'
-    - script: |
-        cd $(Build.Repository.LocalPath)
-        $(cmake_dir)\bin\cmake.exe -G Ninja -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build -DCMAKE_MAKE_PROGRAM=C:/Applications/ninja-1.9.0/ninja.exe
-        $(cmake_dir)\bin\cmake.exe --build $(Build.Repository.LocalPath)/Build
-      displayName: 'Clone Repositories'
-    - script: |
-        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
-        C:\Applications\7-Zip\7z.exe x SmallIN100.tar.gz
-        C:\Applications\7-Zip\7z.exe x SmallIN100.tar
-        C:\Applications\7-Zip\7z.exe x T12-MAI-2010.tar.gz
-        C:\Applications\7-Zip\7z.exe x T12-MAI-2010.tar
-        C:\Applications\7-Zip\7z.exe x Image.tar.gz
-        C:\Applications\7-Zip\7z.exe x Image.tar
-      displayName: "Extracting Data Archives"
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)\bin\cmake.exe -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Applications/ninja-1.9.0/ninja.exe -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" -DCMAKE_BUILD_TYPE=Release $(Build.Repository.LocalPath)/Workspace/DREAM3D
-      displayName: 'Configure DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)\bin\cmake --build . --config Release --target all
-      displayName: 'Compile DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)\bin\ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
-      displayName: 'Testing DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)\bin\cpack --verbose
-      displayName: 'Packing DREAM3D'
-    - script: |
-        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
-        rd /S /Q SmallIN100
-        rd /S /Q T12-MAI-2010
-        rd /S /Q Image
-        del SmallIN100.tar
-        del T12-MAI-2010.tar
-        del Image.tar
-      displayName: "Cleaning Data Archives"
-  - job: Linux_Ubuntu_18_04
-    variables:
-      cmake_dir: '$(Agent.WorkFolder)/../cmake-3.16.6-Linux-x86_64'
-    timeoutInMinutes: 120
-    workspace:
-      clean: all
-    pool:
-      name: BlueQuartz Self Hosted
-      demands:
-        - agent.os -equals linux
-    steps:
-    - script: |
-        echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
-        echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
-        echo Build.SourceBranchName=$(Build.SourceBranchName)
-        echo Build.Repository.Name=$(Build.Repository.Name)
-        echo Build.Repository.Uri=$(Build.Repository.Uri)
-        echo Agent.WorkFolder=$(Agent.WorkFolder)
-        echo Agent.os=$(Agent.os)
-        echo Build.BuildNumber=$(Build.BuildNumber)
-      displayName: 'Dump Azure Variables'
-    - script: |
-        cd $(Build.Repository.LocalPath)
-        $(cmake_dir)/bin/cmake -S $(Build.Repository.LocalPath) -B $(Build.Repository.LocalPath)/Build
-        $(cmake_dir)/bin/cmake --build $(Build.Repository.LocalPath)/Build
-      displayName: 'Clone Repositories'    
-    - script: |
-        cd $(Build.BinariesDirectory)
-        if [ -f "CMakeCache.txt" ]; then
-          rm CMakeCache.txt
-        fi
-        if [ -d "Bin" ]; then
-          rm -rf Bin
-        fi
-        if [ -d "SIMPLView" ]; then
-          rm -rf SIMPLView
-        fi
-      displayName: 'Clean Build Directory'
-    - script: |
-        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
-        /bin/tar -xvzf SmallIN100.tar.gz
-        /bin/tar -xvzf T12-MAI-2010.tar.gz
-        /bin/tar -xvzf Image.tar.gz
-      displayName: "Extracting Data Archives"
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/cmake -G Ninja -DDREAM3D_SDK=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR=$(Build.Repository.LocalPath)/Workspace/DREAM3D_Data -DCMAKE_BUILD_TYPE=Release -DBUILDNAME="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)" $(Build.Repository.LocalPath)/Workspace/DREAM3D
-      displayName: 'Configure DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/cmake --build . --config Release --target all
-      displayName: 'Compile DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/ctest -D Experimental --timeout 7200 -DCTEST_SITE=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name=DREAM3D
-      displayName: 'Testing DREAM3D'
-    - script: |
-        cd $(Build.BinariesDirectory)
-        $(cmake_dir)/bin/cpack --verbose
-      displayName: 'Packing DREAM3D'
-    - script: |
-        cd $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data/Data
-        /bin/rm -rf SmallIN100
-        /bin/rm -rf T12-MAI-2010
-        /bin/rm -rf Image
-      displayName: "Cleaning Data Archives"
-      
+jobs:
+- job:
+  strategy:
+    matrix:
+      macOS:
+        imageName: Darwin
+      Windows:
+        imageName: Windows_NT
+      Linux:
+        imageName: Linux
+
+  pool:
+    name: BlueQuartz Self Hosted
+    demands:
+      - Agent.OS -equals $(imageName)
+
+  workspace:
+    clean: all
+
+  timeoutInMinutes: 120
+
+  variables:
+    dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
+    ci_build_dir: $(Build.Repository.LocalPath)/Build
+    d3d_data_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data
+
+  steps:
+  - script: |
+      echo System.PullRequest.SourceBranch=$(System.PullRequest.SourceBranch)
+      echo System.PullRequest.PullRequestNumber=$(System.PullRequest.PullRequestNumber)
+      echo Build.SourceBranchName=$(Build.SourceBranchName)
+      echo Build.Repository.Name=$(Build.Repository.Name)
+      echo Build.Repository.Uri=$(Build.Repository.Uri)
+      echo Agent.WorkFolder=$(Agent.WorkFolder)
+      echo Agent.OS=$(Agent.OS)
+      echo Build.BuildNumber=$(Build.BuildNumber)
+    displayName: 'Dump Azure Variables'
+
+  - script: |
+      cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir)
+      cmake --build $(ci_build_dir)
+    displayName: Clone Repositories
+
+  - script: |
+      cd $(d3d_data_dir)/Data
+      cmake -E tar xv SmallIN100.tar.gz
+      cmake -E tar xv T12-MAI-2010.tar.gz
+      cmake -E tar xv Image.tar.gz
+    displayName: Extracting Data Archives
+
+  - script: |
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
+    displayName: Configure DREAM3D
+
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --config Release --target all
+    displayName: Build DREAM3D
+
+  - script: |
+      cd $(Build.BinariesDirectory)
+      ctest -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
+    continueOnError: true
+    displayName: Testing DREAM3D
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: CTest
+      testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
+      testRunTitle: CTest_$(Agent.Name)_$(imageName)
+      failTaskOnFailedTests: true
+    displayName: Publish Test Results
+
+  - script: |
+      cd $(Build.BinariesDirectory)
+      cpack -C Release -V
+    displayName: Packing DREAM3D

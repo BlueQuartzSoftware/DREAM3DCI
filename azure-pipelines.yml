@@ -12,7 +12,7 @@ jobs:
   pool:
     name: BlueQuartz Self Hosted
     demands:
-      - Agent.Os -equals $(imageName)
+      - Agent.OS -equals $(imageName)
 
   workspace:
     clean: all
@@ -32,7 +32,7 @@ jobs:
       echo Build.Repository.Name=$(Build.Repository.Name)
       echo Build.Repository.Uri=$(Build.Repository.Uri)
       echo Agent.WorkFolder=$(Agent.WorkFolder)
-      echo Agent.Os=$(Agent.Os)
+      echo Agent.OS=$(Agent.OS)
       echo Build.BuildNumber=$(Build.BuildNumber)
     displayName: 'Dump Azure Variables'
 
@@ -59,6 +59,7 @@ jobs:
   - script: |
       cd $(Build.BinariesDirectory)
       ctest -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
+    continueOnError: true
     displayName: Testing DREAM3D
 
   - task: PublishTestResults@2
@@ -66,6 +67,8 @@ jobs:
       testResultsFormat: CTest
       testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
       testRunTitle: CTest_$(Agent.Name)_$(imageName)
+      failTaskOnFailedTests: true
+    condition: succeededOrFailed()
     displayName: Publish Test Results
 
   - script: |

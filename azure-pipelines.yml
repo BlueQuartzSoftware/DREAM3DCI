@@ -4,10 +4,13 @@ jobs:
     matrix:
       macOS:
         imageName: Darwin
+        build_jobs: 24
       Windows:
         imageName: Windows_NT
+        build_jobs: 24
       Linux:
         imageName: Linux
+        build_jobs: 16
 
   pool:
     name: BlueQuartz Self Hosted
@@ -53,7 +56,7 @@ jobs:
     displayName: Configure DREAM3D
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config Release --target all
+      cmake --build $(Build.BinariesDirectory) -j $(build_jobs) --config Release --target all
     displayName: Build DREAM3D
 
   - script: |

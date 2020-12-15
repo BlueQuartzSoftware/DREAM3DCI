@@ -1,0 +1,66 @@
+schedules:
+  - cron: "0 5 * * *"
+    displayName: "Nightly build"
+    branches:
+      include:
+        - master
+    always: true
+
+pr: none
+trigger: none
+
+jobs:
+- job:
+  strategy:
+    matrix:
+      Neon:
+        agentName: Neon
+
+  pool:
+    name: BlueQuartz Self Hosted
+    demands:
+      - Agent.Name -equals $(agentName)
+      - BQ.NightlyBuild
+      - BQ.NightlyCache
+
+  workspace:
+    clean: all
+
+  timeoutInMinutes: 120
+
+  variables:
+    dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
+    ci_build_dir: $(Build.Repository.LocalPath)/Build
+
+  steps:
+  - script: |
+      cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir) -DCI_CLONE_DREAM3D_DATA:BOOL=OFF
+      cmake --build $(ci_build_dir)
+    displayName: Clone Repositories
+
+  - script: |
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(BQ.NightlyCache)
+    displayName: Configure DREAM3D
+
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --target all
+    displayName: Build DREAM3D
+
+  - script: |
+      cd $(Build.BinariesDirectory)
+      ctest -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D -DCTEST_BUILD_NAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
+    continueOnError: true
+    displayName: Testing DREAM3D
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: CTest
+      testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
+      testRunTitle: CTest_$(Agent.Name)_$(Agent.OS)
+      failTaskOnFailedTests: true
+    displayName: Publish Test Results
+
+  - script: |
+      cd $(Build.BinariesDirectory)
+      cpack -V
+    displayName: Packing DREAM3D

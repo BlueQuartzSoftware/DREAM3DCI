@@ -41,12 +41,12 @@ jobs:
   - bash: |
       echo "##vso[task.setvariable variable=DREAM3D_NIGHTLY_CACHE]$DREAM3D_NIGHTLY_CACHE"
     condition: or( eq( variables['Agent.OS'], 'Linux' ), eq( variables['Agent.OS'], 'Darwin' ) )
-    displayName: Copy environment variables
+    displayName: Copy environment variables (Linux/macOS)
 
   - powershell: |
       Write-Host "##vso[task.setvariable variable=DREAM3D_NIGHTLY_CACHE]$DREAM3D_NIGHTLY_CACHE"
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
-    displayName: Copy environment variables
+    displayName: Copy environment variables (Windows)
 
   - script: |
       cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir) -DCI_CLONE_DREAM3D_DATA:BOOL=OFF

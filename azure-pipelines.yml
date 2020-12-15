@@ -23,6 +23,7 @@ jobs:
     dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
     ci_build_dir: $(Build.Repository.LocalPath)/Build
     d3d_data_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D_Data
+    build_type: Release
 
   steps:
   - script: |
@@ -49,16 +50,16 @@ jobs:
     displayName: Extracting Data Archives
 
   - script: |
-      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -DCMAKE_BUILD_TYPE:STRING=$(build_type) -DDREAM3D_SDK:PATH=$(Agent.WorkFolder) -DDREAM3D_DATA_DIR:PATH=$(d3d_data_dir)
     displayName: Configure DREAM3D
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config Release --target all
+      cmake --build $(Build.BinariesDirectory) --config $(build_type) --target all
     displayName: Build DREAM3D
 
   - script: |
       cd $(Build.BinariesDirectory)
-      ctest -C Release -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
+      ctest -C $(build_type) -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D -DCTEST_BUILD_NAME:STRING="$(Agent.MachineName)-$(Agent.OS)-$(Build.SourceBranchName)_$(Build.BuildNumber)"
     continueOnError: true
     displayName: Testing DREAM3D
 
@@ -66,11 +67,11 @@ jobs:
     inputs:
       testResultsFormat: CTest
       testResultsFiles: $(Build.BinariesDirectory)/Testing/*/Test.xml
-      testRunTitle: CTest_$(Agent.Name)_$(imageName)
+      testRunTitle: CTest_$(Agent.Name)_$(Agent.OS)
       failTaskOnFailedTests: true
     displayName: Publish Test Results
 
   - script: |
       cd $(Build.BinariesDirectory)
-      cpack -C Release -V
+      cpack -C $(build_type) -V
     displayName: Packing DREAM3D

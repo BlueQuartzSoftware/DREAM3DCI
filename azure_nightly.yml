@@ -34,6 +34,10 @@ jobs:
 
   steps:
   - script: |
+      echo BQ.NightlyCache=$(BQ.NightlyCache)
+    displayName: 'Dump Azure Variables'
+
+  - script: |
       cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir) -DCI_CLONE_DREAM3D_DATA:BOOL=OFF
       cmake --build $(ci_build_dir)
     displayName: Clone Repositories

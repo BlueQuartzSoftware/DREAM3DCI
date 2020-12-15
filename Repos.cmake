@@ -5,8 +5,11 @@ set(DREAM3D_Base_Repos
   H5Support
   EbsdLib
   DREAM3D
-  DREAM3D_Data
 )
+
+if(CI_CLONE_DREAM3D_DATA)
+  list(APPEND DREAM3D_Base_Repos DREAM3D_Data)
+endif()
 
 #--------------------------------------------------------------------------------------------------
 # CMP Details

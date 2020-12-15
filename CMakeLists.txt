@@ -5,6 +5,7 @@ project(DREAM3DCI VERSION 2.0.0.0 LANGUAGES NONE)
 include(ExternalProject)
 
 set(DREAM3D_WORKSPACE ${DREAM3DCI_SOURCE_DIR}/Workspace CACHE PATH "Root directory where repos will be cloned")
+option(CI_CLONE_DREAM3D_DATA "Clone DREAM3D_Data repo" ON)
 
 include(${PROJECT_SOURCE_DIR}/Repos.cmake)
 

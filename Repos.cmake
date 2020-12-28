@@ -96,7 +96,7 @@ set(SimulationIO_GIT_BRANCH "develop")
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
 set(DREAM3DReview_GH_ORG "imikejackson")
-set(DREAM3DReview_GIT_BRANCH "topic/FindDynamicArrayStatictics")
+set(DREAM3DReview_GIT_BRANCH "topic/FindDynamicArrayStatistics")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details

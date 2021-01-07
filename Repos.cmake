@@ -79,8 +79,8 @@ set(DREAM3D_Plugins
 #--------------------------------------------------------------------------------------------------
 set(ITKImageProcessing_REPO_NAME "ITKImageProcessing")
 set(ITKImageProcessing_BASE_URL "https://www.github.com")
-set(ITKImageProcessing_GH_ORG "bluequartzsoftware")
-set(ITKImageProcessing_GIT_BRANCH "develop")
+set(ITKImageProcessing_GH_ORG "JDuffeyBQ")
+set(ITKImageProcessing_GIT_BRANCH "feature/job_pool")
 
 #--------------------------------------------------------------------------------------------------
 # SimulationIO Details

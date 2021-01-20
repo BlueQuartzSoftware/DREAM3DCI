@@ -15,6 +15,7 @@ jobs:
     matrix:
       Neon:
         agentName: Neon
+        buildType: Debug
 
   pool:
     name: BlueQuartz Self Hosted
@@ -56,16 +57,16 @@ jobs:
     displayName: Clone Repositories
 
   - script: |
-      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(DREAM3D_NIGHTLY_CACHE) -DBUILDNAME:STRING="$(Agent.MachineName)-$(Agent.OS)"
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(DREAM3D_NIGHTLY_CACHE) -DCMAKE_BUILD_TYPE:STRING=$(buildType) -DSITE:STRING="$(Agent.MachineName).bluequartz.net"
     displayName: Configure DREAM3D
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --target all
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target all
     displayName: Build DREAM3D
 
   - script: |
       cd $(Build.BinariesDirectory)
-      ctest -D Experimental --timeout 7200 -DCTEST_SITE:STRING=$(Agent.MachineName).bluequartz.net -Ddashboard_source_name:STRING=DREAM3D
+      ctest -C $(buildType) -D Experimental --timeout 7200
     continueOnError: true
     displayName: Testing DREAM3D
 
@@ -79,5 +80,5 @@ jobs:
 
   - script: |
       cd $(Build.BinariesDirectory)
-      cpack -V
+      cpack -C $(buildType) -V
     displayName: Packing DREAM3D

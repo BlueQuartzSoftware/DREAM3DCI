@@ -58,7 +58,7 @@ jobs:
     displayName: Clone Repositories
 
   - script: |
-      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(DREAM3D_NIGHTLY_CACHE) -DCMAKE_BUILD_TYPE:STRING=$(buildType) -DSITE:STRING="$(Agent.MachineName).bluequartz.net"
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(DREAM3D_NIGHTLY_CACHE) -DCMAKE_BUILD_TYPE:STRING=$(buildType) -DSITE:STRING="$(Agent.MachineName).bluequartz.net" -DDART_TESTING_TIMEOUT:STRING=7200
     displayName: Configure DREAM3D
 
   - script: |
@@ -78,8 +78,7 @@ jobs:
     displayName: CDash Build
 
   - script: |
-      cd $(Build.BinariesDirectory)
-      ctest -C $(buildType) -D $(model_type) --timeout 7200
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Test
     continueOnError: true
     displayName: CDash Test
 

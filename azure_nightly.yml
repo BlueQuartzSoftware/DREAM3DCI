@@ -67,24 +67,24 @@ jobs:
 
   - script: |
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Update
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
     displayName: CDash Update
 
   - script: |
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Configure
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
     displayName: CDash Configure
 
   - script: |
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Build
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
     displayName: CDash Build
 
   - script: |
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Test
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
     continueOnError: true
     displayName: CDash Test
-
-  - script: |
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
-    displayName: CDash Submit
 
   - task: PublishTestResults@2
     inputs:

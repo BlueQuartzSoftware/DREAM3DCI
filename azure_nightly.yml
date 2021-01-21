@@ -58,7 +58,7 @@ jobs:
     displayName: Clone Repositories
 
   - script: |
-      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(DREAM3D_NIGHTLY_CACHE) -DCMAKE_BUILD_TYPE:STRING=$(buildType) -DSITE:STRING="$(Agent.MachineName).bluequartz.net" -DDART_TESTING_TIMEOUT:STRING=7200
+      cmake -S $(dream3d_source_dir) -B $(Build.BinariesDirectory) -G Ninja -C $(DREAM3D_NIGHTLY_CACHE) -DCMAKE_BUILD_TYPE:STRING=$(buildType) -DSITE:STRING="$(Agent.MachineName).bluequartz.net"
     displayName: Configure DREAM3D
 
   - script: |
@@ -71,18 +71,21 @@ jobs:
     displayName: CDash Update
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Configure
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
+      cd $(Build.BinariesDirectory)
+      ctest -V -C $(buildType) -D $(model_type)Configure
+      ctest -C $(buildType) -D $(model_type)Submit
     displayName: CDash Configure
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Build
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
+      cd $(Build.BinariesDirectory)
+      ctest -V -C $(buildType) -D $(model_type)Build
+      ctest -C $(buildType) -D $(model_type)Submit
     displayName: CDash Build
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Test
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
+      cd $(Build.BinariesDirectory)
+      ctest -C $(buildType) -D $(model_type)Test --timeout 7200
+      ctest -C $(buildType) -D $(model_type)Submit
     continueOnError: true
     displayName: CDash Test
 

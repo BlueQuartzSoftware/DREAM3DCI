@@ -31,7 +31,7 @@ jobs:
   variables:
     dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
     ci_build_dir: $(Build.Repository.LocalPath)/Build
-    model_type: Experimental
+    model_type: Nightly
 
   steps:
   - script: |

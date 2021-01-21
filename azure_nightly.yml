@@ -65,27 +65,35 @@ jobs:
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Start
     displayName: CDash Start
 
-  - script: |
+  - bash: |
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Update
+      status=$?
       cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
+      exit $status
     displayName: CDash Update
 
-  - script: |
+  - bash: |
       cd $(Build.BinariesDirectory)
       ctest -V -C $(buildType) -D $(model_type)Configure
+      status=$?
       ctest -C $(buildType) -D $(model_type)Submit
+      exit $status
     displayName: CDash Configure
 
-  - script: |
+  - bash: |
       cd $(Build.BinariesDirectory)
       ctest -V -C $(buildType) -D $(model_type)Build
+      status=$?
       ctest -C $(buildType) -D $(model_type)Submit
+      exit $status
     displayName: CDash Build
 
-  - script: |
+  - bash: |
       cd $(Build.BinariesDirectory)
       ctest -C $(buildType) -D $(model_type)Test --timeout 7200
+      status=$?
       ctest -C $(buildType) -D $(model_type)Submit
+      exit $status
     continueOnError: true
     displayName: CDash Test
 

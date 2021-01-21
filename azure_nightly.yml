@@ -31,13 +31,14 @@ jobs:
   variables:
     dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
     ci_build_dir: $(Build.Repository.LocalPath)/Build
+    model_type: Experimental
 
   steps:
   - script: |
       echo Agent.Name=$(Agent.Name)
       echo Agent.OS=$(Agent.OS)
       echo Agent.WorkFolder=$(Agent.WorkFolder)
-    displayName: 'Dump Azure Variables'
+    displayName: Dump Azure Variables
 
   - bash: |
       echo "##vso[task.setvariable variable=DREAM3D_NIGHTLY_CACHE]$DREAM3D_NIGHTLY_CACHE"
@@ -61,14 +62,30 @@ jobs:
     displayName: Configure DREAM3D
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target all
-    displayName: Build DREAM3D
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Start
+    displayName: CDash Start
+
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Update
+    displayName: CDash Update
+
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Configure
+    displayName: CDash Configure
+
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Build
+    displayName: CDash Build
 
   - script: |
       cd $(Build.BinariesDirectory)
-      ctest -C $(buildType) -D Experimental --timeout 7200
+      ctest -C $(buildType) -D $(model_type) --timeout 7200
     continueOnError: true
-    displayName: Testing DREAM3D
+    displayName: CDash Test
+
+  - script: |
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
+    displayName: CDash Submit
 
   - task: PublishTestResults@2
     inputs:

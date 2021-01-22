@@ -31,25 +31,26 @@ jobs:
   variables:
     dream3d_source_dir: $(Build.Repository.LocalPath)/Workspace/DREAM3D
     ci_build_dir: $(Build.Repository.LocalPath)/Build
+    model_type: Nightly
 
   steps:
   - script: |
       echo Agent.Name=$(Agent.Name)
       echo Agent.OS=$(Agent.OS)
       echo Agent.WorkFolder=$(Agent.WorkFolder)
-    displayName: 'Dump Azure Variables'
+    displayName: Dump Azure Variables
 
   - bash: |
       echo "##vso[task.setvariable variable=DREAM3D_NIGHTLY_CACHE]$DREAM3D_NIGHTLY_CACHE"
       echo DREAM3D_NIGHTLY_CACHE=$DREAM3D_NIGHTLY_CACHE
     condition: or(eq(variables['Agent.OS'], 'Linux'), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Copy environment variables (Linux/macOS)
+    displayName: Copy Environment Variables (Linux/macOS)
 
   - powershell: |
       Write-Host "##vso[task.setvariable variable=DREAM3D_NIGHTLY_CACHE]$DREAM3D_NIGHTLY_CACHE"
       echo DREAM3D_NIGHTLY_CACHE=$DREAM3D_NIGHTLY_CACHE
     condition: eq(variables['Agent.OS'], 'Windows_NT')
-    displayName: Copy environment variables (Windows)
+    displayName: Copy Environment Variables (Windows)
 
   - script: |
       cmake -G Ninja -S $(Build.Repository.LocalPath) -B $(ci_build_dir) -DCI_CLONE_DREAM3D_DATA:BOOL=OFF
@@ -61,14 +62,40 @@ jobs:
     displayName: Configure DREAM3D
 
   - script: |
-      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target all
-    displayName: Build DREAM3D
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Start
+    displayName: CDash Start
 
-  - script: |
+  - bash: |
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Update
+      status=$?
+      cmake --build $(Build.BinariesDirectory) --config $(buildType) --target $(model_type)Submit
+      exit $status
+    displayName: CDash Update
+
+  - bash: |
       cd $(Build.BinariesDirectory)
-      ctest -C $(buildType) -D Experimental --timeout 7200
+      ctest -V -C $(buildType) -D $(model_type)Configure
+      status=$?
+      ctest -C $(buildType) -D $(model_type)Submit
+      exit $status
+    displayName: CDash Configure
+
+  - bash: |
+      cd $(Build.BinariesDirectory)
+      ctest -V -C $(buildType) -D $(model_type)Build
+      status=$?
+      ctest -C $(buildType) -D $(model_type)Submit
+      exit $status
+    displayName: CDash Build
+
+  - bash: |
+      cd $(Build.BinariesDirectory)
+      ctest -C $(buildType) -D $(model_type)Test --timeout 7200
+      status=$?
+      ctest -C $(buildType) -D $(model_type)Submit
+      exit $status
     continueOnError: true
-    displayName: Testing DREAM3D
+    displayName: CDash Test
 
   - task: PublishTestResults@2
     inputs:

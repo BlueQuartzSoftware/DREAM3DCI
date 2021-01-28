@@ -24,16 +24,16 @@ set(CMP_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(SIMPL_REPO_NAME "SIMPL")
 set(SIMPL_BASE_URL "https://www.github.com")
-set(SIMPL_GH_ORG "bluequartzsoftware")
-set(SIMPL_GIT_BRANCH "develop")
+set(SIMPL_GH_ORG "imikejackson")
+set(SIMPL_GIT_BRANCH "topic/qm_melt_pool_multi_file")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPLView Details
 #--------------------------------------------------------------------------------------------------
 set(SIMPLView_REPO_NAME "SIMPLView")
 set(SIMPLView_BASE_URL "https://www.github.com")
-set(SIMPLView_GH_ORG "bluequartzsoftware")
-set(SIMPLView_GIT_BRANCH "develop")
+set(SIMPLView_GH_ORG "imikejackson")
+set(SIMPLView_GIT_BRANCH "topic/qm_melt_pool_multi_file")
 
 #--------------------------------------------------------------------------------------------------
 # H5Support Details
@@ -95,8 +95,8 @@ set(SimulationIO_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "imikejackson")
+set(DREAM3DReview_GIT_BRANCH "topic/qm_melt_pool_multi_file")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details

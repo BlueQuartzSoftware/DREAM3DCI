@@ -6,18 +6,7 @@ Continuous Integration for DREAM.3D Builds
 
 + You should fork this repo into your own area on GitHub
 + Branch using feature/XXXXXX naming scheme
-+ For each repository, checkout the proper branch from the remote
-+ Commit those changes back to your GitHub area.
-+ Submit a Pull Request (PR) against this repository
-+ An admin for the repo will inspect your changes and kick off a build on the Azure build environment
-
-## Updating all the submodules to the latest 'develop' branch ##
-
-    [DREAN3DCI]$ git checkout master
-    [DREAN3DCI]$ git submodule foreach git reset --hard
-    [DREAN3DCI]$ git submodule foreach git checkout develop
-    [DREAN3DCI]$ git submodule foreach git pull origin develop
-    [DREAN3DCI]$ git commit -s -a -m "Updating all submodules"
-    [DREAN3DCI]$ git push origin master
-
-## Add/Update the Remote for the Repositories that you wish to test ##
++ Edit the DREAM3DCI/Repos.cmake file to point to your forks/branches
++ push the changes to your fork
++ Submit a PR for the changes.
++ The Azure build bots will kick off builds to validate your branches/changes

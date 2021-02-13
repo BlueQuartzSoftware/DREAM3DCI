@@ -32,8 +32,8 @@ set(SIMPL_GIT_BRANCH "topic/replace_qprop_with_callbacks")
 #--------------------------------------------------------------------------------------------------
 set(SIMPLView_REPO_NAME "SIMPLView")
 set(SIMPLView_BASE_URL "https://www.github.com")
-set(SIMPLView_GH_ORG "bluequartzsoftware")
-set(SIMPLView_GIT_BRANCH "develop")
+set(SIMPLView_GH_ORG "imikejackson")
+set(SIMPLView_GIT_BRANCH "topic/replace_qprop_with_callbacks")
 
 #--------------------------------------------------------------------------------------------------
 # H5Support Details
@@ -80,28 +80,28 @@ set(DREAM3D_Plugins
 set(ITKImageProcessing_REPO_NAME "ITKImageProcessing")
 set(ITKImageProcessing_BASE_URL "https://www.github.com")
 set(ITKImageProcessing_GH_ORG "imikejackson")
-set(ITKImageProcessing_GIT_BRANCH "topic/replace_qprop_with_callbacks")
+set(ITKImageProcessing_GIT_BRANCH "origin/topic/replace_qprop_with_callbacks")
 
 #--------------------------------------------------------------------------------------------------
 # SimulationIO Details
 #--------------------------------------------------------------------------------------------------
 set(SimulationIO_REPO_NAME "SimulationIO")
 set(SimulationIO_BASE_URL "https://www.github.com")
-set(SimulationIO_GH_ORG "bluequartzsoftware")
-set(SimulationIO_GIT_BRANCH "develop")
+set(SimulationIO_GH_ORG "imikejackson")
+set(SimulationIO_GIT_BRANCH "origin/topic/replace_qprop_with_callbacks")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3DReview Details
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "imikejackson")
+set(DREAM3DReview_GIT_BRANCH "origin/topic/replace_qprop_with_callbacks")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details
 #--------------------------------------------------------------------------------------------------
 set(UCSBUtilities_REPO_NAME "UCSBUtilities")
 set(UCSBUtilities_BASE_URL "https://www.github.com")
-set(UCSBUtilities_GH_ORG "dream3d")
-set(UCSBUtilities_GIT_BRANCH "develop")
+set(UCSBUtilities_GH_ORG "imikejackson")
+set(UCSBUtilities_GIT_BRANCH "origin/topic/replace_qprop_with_callbacks")

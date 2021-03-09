@@ -16,8 +16,8 @@ endif()
 #--------------------------------------------------------------------------------------------------
 set(CMP_REPO_NAME "CMP")
 set(CMP_BASE_URL "https://www.github.com")
-set(CMP_GH_ORG "bluequartzsoftware")
-set(CMP_GIT_BRANCH "develop")
+set(CMP_GH_ORG "JDuffeyBQ")
+set(CMP_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPL Details

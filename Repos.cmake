@@ -24,8 +24,8 @@ set(CMP_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(SIMPL_REPO_NAME "SIMPL")
 set(SIMPL_BASE_URL "https://www.github.com")
-set(SIMPL_GH_ORG "bluequartzsoftware")
-set(SIMPL_GIT_BRANCH "develop")
+set(SIMPL_GH_ORG "imikejackson")
+set(SIMPL_GIT_BRANCH "feature/generate_cell_centers")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPLView Details
@@ -56,8 +56,8 @@ set(EbsdLib_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(DREAM3D_REPO_NAME "DREAM3D")
 set(DREAM3D_BASE_URL "https://www.github.com")
-set(DREAM3D_GH_ORG "bluequartzsoftware")
-set(DREAM3D_GIT_BRANCH "develop")
+set(DREAM3D_GH_ORG "imikejackson")
+set(DREAM3D_GIT_BRANCH "feature/fix_find_shapes")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D_Data Details

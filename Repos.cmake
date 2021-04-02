@@ -16,8 +16,8 @@ endif()
 #--------------------------------------------------------------------------------------------------
 set(CMP_REPO_NAME "CMP")
 set(CMP_BASE_URL "https://www.github.com")
-set(CMP_GH_ORG "bluequartzsoftware")
-set(CMP_GIT_BRANCH "develop")
+set(CMP_GH_ORG "JDuffeyBQ")
+set(CMP_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # SIMPL Details
@@ -48,8 +48,8 @@ set(H5Support_GIT_BRANCH "develop")
 #--------------------------------------------------------------------------------------------------
 set(EbsdLib_REPO_NAME "EbsdLib")
 set(EbsdLib_BASE_URL "https://www.github.com")
-set(EbsdLib_GH_ORG "bluequartzsoftware")
-set(EbsdLib_GIT_BRANCH "develop")
+set(EbsdLib_GH_ORG "JDuffeyBQ")
+set(EbsdLib_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D Details
@@ -79,29 +79,29 @@ set(DREAM3D_Plugins
 #--------------------------------------------------------------------------------------------------
 set(ITKImageProcessing_REPO_NAME "ITKImageProcessing")
 set(ITKImageProcessing_BASE_URL "https://www.github.com")
-set(ITKImageProcessing_GH_ORG "bluequartzsoftware")
-set(ITKImageProcessing_GIT_BRANCH "develop")
+set(ITKImageProcessing_GH_ORG "JDuffeyBQ")
+set(ITKImageProcessing_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # SimulationIO Details
 #--------------------------------------------------------------------------------------------------
 set(SimulationIO_REPO_NAME "SimulationIO")
 set(SimulationIO_BASE_URL "https://www.github.com")
-set(SimulationIO_GH_ORG "bluequartzsoftware")
-set(SimulationIO_GIT_BRANCH "develop")
+set(SimulationIO_GH_ORG "JDuffeyBQ")
+set(SimulationIO_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3DReview Details
 #--------------------------------------------------------------------------------------------------
 set(DREAM3DReview_REPO_NAME "DREAM3DReview")
 set(DREAM3DReview_BASE_URL "https://www.github.com")
-set(DREAM3DReview_GH_ORG "dream3d")
-set(DREAM3DReview_GIT_BRANCH "develop")
+set(DREAM3DReview_GH_ORG "JDuffeyBQ")
+set(DREAM3DReview_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # UCSBUtilities Details
 #--------------------------------------------------------------------------------------------------
 set(UCSBUtilities_REPO_NAME "UCSBUtilities")
 set(UCSBUtilities_BASE_URL "https://www.github.com")
-set(UCSBUtilities_GH_ORG "dream3d")
-set(UCSBUtilities_GIT_BRANCH "develop")
+set(UCSBUtilities_GH_ORG "JDuffeyBQ")
+set(UCSBUtilities_GIT_BRANCH "feature/anaconda")

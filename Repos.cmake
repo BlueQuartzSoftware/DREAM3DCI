@@ -40,8 +40,8 @@ set(SIMPLView_GIT_BRANCH "feature/embedded_python")
 #--------------------------------------------------------------------------------------------------
 set(H5Support_REPO_NAME "H5Support")
 set(H5Support_BASE_URL "https://www.github.com")
-set(H5Support_GH_ORG "bluequartzsoftware")
-set(H5Support_GIT_BRANCH "develop")
+set(H5Support_GH_ORG "JDuffeyBQ")
+set(H5Support_GIT_BRANCH "feature/anaconda")
 
 #--------------------------------------------------------------------------------------------------
 # EbsdLib Details

@@ -57,7 +57,7 @@ set(EbsdLib_GIT_BRANCH "develop")
 set(DREAM3D_REPO_NAME "DREAM3D")
 set(DREAM3D_BASE_URL "https://www.github.com")
 set(DREAM3D_GH_ORG "bluequartzsoftware")
-set(DREAM3D_GIT_BRANCH "develop")
+set(DREAM3D_GIT_BRANCH "topic/rigid_point_cloud_transform")
 
 #--------------------------------------------------------------------------------------------------
 # DREAM3D_Data Details
